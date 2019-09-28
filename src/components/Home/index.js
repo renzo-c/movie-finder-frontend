@@ -6,7 +6,6 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Row } from 'react-bootstrap';
 import * as movieHelpers from '../../assets/helpers/movieServices';
-import * as movieList from '../../assets/helpers/movieList';
 import MovieList from '../MovieList';
 import Loader from '../Loader';
 
@@ -44,7 +43,6 @@ const Home = () => {
       movieHelpers.getTopMovies({ page: 1 }, setCurrentMovies);
     }
   };
-  console.log('currentMovies!!!', currentMovies);
   if (currentMovies === undefined) {
     return <Loader />;
   } else {

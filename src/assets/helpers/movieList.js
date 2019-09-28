@@ -12,7 +12,6 @@ const updateMoviePictureUrls = (movieResult, width = 300) => ({
 });
 
 export const getMoviesList = moviesResponse => {
-  console.log('moviesResponse', moviesResponse);
   return !!moviesResponse
     ? [
         ...moviesResponse.results.map(movieResult =>
