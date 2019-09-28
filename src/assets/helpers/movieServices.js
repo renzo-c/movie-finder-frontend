@@ -40,7 +40,15 @@ export const searchMovies = ({ page, query }, setFunc) => {
   return null;
 };
 
-export const getMovieDetails = async ({ movieId }) => {
+export const getMovieDetails = async (movieId, setFunc) => {
   const fullUrl = createMovieDbUrl(`/movie/${movieId}`);
-  return fetch(fullUrl);
+  return fetch(fullUrl)
+    .then(res => res.json())
+    .then(res => {
+      let tmpObj = { results: [res] };
+      return movieList.getMoviesList(tmpObj);
+    })
+    .then(res => {
+      return setFunc(res);
+    });
 };
