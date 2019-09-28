@@ -1,5 +1,6 @@
 import React from 'react';
+import Home from './components/Home';
 
-const App = ({ title }) => <>{title}</>;
+const App = () => <Home />;
 
 export default App;
