@@ -22,31 +22,33 @@ const useStyles = makeStyles(theme => ({
 const Home = () => {
   const classes = useStyles();
   const [currentMovies, setCurrentMovies] = useState(undefined);
+  const [searching, setSearching] = useState(false);
 
   useEffect(() => {
-    let fetchUrl = movieHelpers.getTopMovies({ page: 1 });
-    fetch(fetchUrl)
-      .then(res => res.json())
-      .then(resJson => setCurrentMovies(resJson));
+    movieHelpers.getTopMovies({ page: 1 }, setCurrentMovies);
   }, []);
 
   const handleSearch = e => {
     const str = e.target.value.toLowerCase().trim();
     if (str.length !== 0) {
-      let fetchUrl = movieHelpers.searchMovies({
-        page: 1,
-        query: str,
-      });
-      fetch(fetchUrl)
-        .then(res => res.json())
-        .then(resJson => setCurrentMovies(resJson));
+      setSearching(true);
+      movieHelpers.searchMovies(
+        {
+          page: 1,
+          query: str,
+        },
+        setCurrentMovies,
+      );
+    } else {
+      setSearching(false);
+      movieHelpers.getTopMovies({ page: 1 }, setCurrentMovies);
     }
   };
-
+  console.log('currentMovies!!!', currentMovies);
   if (currentMovies === undefined) {
     return <Loader />;
   } else {
-    const movies = movieList.getMoviesList(currentMovies);
+    const movies = currentMovies;
     return (
       <>
         <AppBar className={classes.appBarContainer}>
