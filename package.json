@@ -1,7 +1,7 @@
 {
-  "name": "react-frontend-template",
+  "name": "react-frontend-crehana-project",
   "version": "1.0.0",
-  "description": "This is project includes the basic libraries to start a frontend project with Reactjs",
+  "description": "This is a basic project to show and filter movies",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
