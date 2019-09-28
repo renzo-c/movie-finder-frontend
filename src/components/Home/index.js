@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Row } from 'react-bootstrap';
@@ -48,14 +45,6 @@ const Home = () => {
   } else {
     const movies = currentMovies;
     return (
-      <>
-        <AppBar className={classes.appBarContainer}>
-          <Toolbar>
-            <Typography variant="h6" align="center">
-              <div>Movies Finder</div>
-            </Typography>
-          </Toolbar>
-        </AppBar>
         <Container>
           <Row>
             <TextField
@@ -68,7 +57,6 @@ const Home = () => {
             <MovieList movies={movies} />
           </Row>
         </Container>
-      </>
     );
   }
 };
