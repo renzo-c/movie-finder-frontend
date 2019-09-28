@@ -6,27 +6,25 @@ const createMovieDbUrl = (relativeUrl, queryParams) => {
   if (queryParams) {
     Object.keys(queryParams).forEach(
       paramName =>
-      (baseUrl += `&${paramName}=${queryParams[paramName]}`),
-      );
-    }
-    return baseUrl;
-  };
-  
-  export const getTopMovies = ({ page }) => {
-    console.log("queryParams", page);
+        (baseUrl += `&${paramName}=${queryParams[paramName]}`),
+    );
+  }
+  return baseUrl;
+};
+
+export const getTopMovies = ({ page }) => {
   const fullUrl = createMovieDbUrl('/movie/top_rated', {
     page,
   });
   return fullUrl;
 };
 
-export const searchMovies = async ({ page, query }) => {
+export const searchMovies = ({ page, query }) => {
   const fullUrl = createMovieDbUrl('/search/movie', {
     page,
     query,
   });
-  console.log('fullUrl', fullUrl);
-  return fetch(fullUrl);
+  return fullUrl;
 };
 
 export const getMovieDetails = async ({ movieId }) => {
