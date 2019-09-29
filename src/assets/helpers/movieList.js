@@ -20,3 +20,11 @@ export const getMoviesList = moviesResponse => {
       ]
     : null;
 };
+
+export const removeDuplicates = arr =>
+  Object.values(
+    arr.reduce(
+      (acc, cur) => Object.assign(acc, { [cur.id]: cur }),
+      {},
+    ),
+  );

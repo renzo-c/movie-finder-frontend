@@ -17,7 +17,6 @@ const MovieInfo = ({ movieId }) => {
     movieHelpers.getMovieDetails(movieId, setMovie);
   }, []);
 
-  console.log('movieInfo', movie);
   if (movie === null) {
     return <Loader />;
   } else {

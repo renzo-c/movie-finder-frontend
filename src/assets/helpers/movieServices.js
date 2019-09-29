@@ -13,7 +13,7 @@ const createMovieDbUrl = (relativeUrl, queryParams) => {
   return baseUrl;
 };
 
-export const getTopMovies = ({ page }, setFunc) => {
+export const getTopMovies = ({ page }, setFunc, currentMovies) => {
   const fullUrl = createMovieDbUrl('/movie/top_rated', {
     page,
   });
@@ -21,22 +21,27 @@ export const getTopMovies = ({ page }, setFunc) => {
     .then(res => res.json())
     .then(res => movieList.getMoviesList(res))
     .then(res => {
-      return setFunc(res);
+      let newMovies = [...currentMovies, ...res];
+      return setFunc(newMovies);
     });
   return null;
 };
 
-export const searchMovies = ({ page, query }, setFunc) => {
+export const searchMovies = (
+  { page, query },
+  setFunc,
+  currentMovies,
+) => {
   const fullUrl = createMovieDbUrl('/search/movie', {
     page,
     query,
   });
-  console.log('fullUrl!!!', fullUrl);
   fetch(fullUrl)
     .then(res => res.json())
     .then(res => movieList.getMoviesList(res))
     .then(res => {
-      return setFunc(res);
+      let newMovies = [...currentMovies, ...res];
+      return setFunc(newMovies);
     });
   return null;
 };
@@ -54,13 +59,22 @@ export const getMovieDetails = (movieId, setFunc) => {
     });
 };
 
-export const getMoviesByCategory = (categoryId, setFunc) => {
+export const getMoviesByCategory = (
+  page,
+  categoryId,
+  setFunc,
+  currentMovies,
+) => {
   const fullUrl = createMovieDbUrl(`/discover/movie`, {
     with_genres: categoryId,
+    page,
   });
   fetch(fullUrl)
     .then(res => res.json())
     .then(res => movieList.getMoviesList(res))
-    .then(res => setFunc(res));
+    .then(res => {
+      let newMovies = [...currentMovies, ...res];
+      return setFunc(newMovies);
+    });
   return null;
 };

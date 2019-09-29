@@ -13,7 +13,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CategoryFinder = ({ setFunc }) => {
+const CategoryFinder = ({
+  setFilter,
+  setSearching,
+  setSearchStr,
+  isSearching,
+  currentPage,
+  currentMovies,
+  setCurrentMovies,
+  setCurrentCat
+}) => {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     id: 0,
@@ -21,14 +30,25 @@ const CategoryFinder = ({ setFunc }) => {
   });
 
   const handleChangeCategory = name => event => {
+    event.target.value === 0 ? setFilter(false) : setFilter(true);
+    if (isSearching) {
+      setSearching(false);
+      setSearchStr('');
+      setCurrentMovies([]);
+    }
+    setCurrentCat(event.target.value);
     setValues({ ...values, [name]: event.target.value });
-    movieHelpers.getMoviesByCategory(event.target.value, setFunc);
+    movieHelpers.getMoviesByCategory(
+      currentPage,
+      event.target.value,
+      setCurrentMovies,
+      [],
+    );
   };
-
   return (
     <FormControl className={classes.formControl}>
       <Select
-        value={values.name}
+        value={isSearching ? 0 : values.name}
         onChange={handleChangeCategory('name')}
         inputProps={{
           name: 'name',

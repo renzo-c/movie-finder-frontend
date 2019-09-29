@@ -33,7 +33,6 @@ const MovieCardComponent = ({ movie }) => {
   const [isMouseOver, setIsMouseOver] = useState(false);
   const { title, poster_path } = movie;
   const classes = useStyles();
-  console.log('movie', movie);
   const handleClick = () => {
     navigate(`/movie/${movie.id}`);
   };
