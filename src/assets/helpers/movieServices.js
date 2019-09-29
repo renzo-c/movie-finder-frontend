@@ -31,6 +31,7 @@ export const searchMovies = ({ page, query }, setFunc) => {
     page,
     query,
   });
+  console.log('fullUrl!!!', fullUrl);
   fetch(fullUrl)
     .then(res => res.json())
     .then(res => movieList.getMoviesList(res))
@@ -40,7 +41,7 @@ export const searchMovies = ({ page, query }, setFunc) => {
   return null;
 };
 
-export const getMovieDetails = async (movieId, setFunc) => {
+export const getMovieDetails = (movieId, setFunc) => {
   const fullUrl = createMovieDbUrl(`/movie/${movieId}`);
   return fetch(fullUrl)
     .then(res => res.json())
@@ -51,4 +52,15 @@ export const getMovieDetails = async (movieId, setFunc) => {
     .then(res => {
       return setFunc(res);
     });
+};
+
+export const getMoviesByCategory = (categoryId, setFunc) => {
+  const fullUrl = createMovieDbUrl(`/discover/movie`, {
+    with_genres: categoryId,
+  });
+  fetch(fullUrl)
+    .then(res => res.json())
+    .then(res => movieList.getMoviesList(res))
+    .then(res => setFunc(res));
+  return null;
 };

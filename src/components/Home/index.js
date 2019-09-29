@@ -5,6 +5,8 @@ import { Container, Row } from 'react-bootstrap';
 import * as movieHelpers from '../../assets/helpers/movieServices';
 import MovieList from '../MovieList';
 import Loader from '../Loader';
+import CategoryFinder from '../CategoryFinder';
+
 
 const useStyles = makeStyles(theme => ({
   appBarContainer: {
@@ -16,18 +18,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Home = () => {
-  const classes = useStyles();
   const [currentMovies, setCurrentMovies] = useState(undefined);
-  const [searching, setSearching] = useState(false);
 
   useEffect(() => {
     movieHelpers.getTopMovies({ page: 1 }, setCurrentMovies);
   }, []);
 
-  const handleSearch = e => {
+  const handleSearchByName = e => {
     const str = e.target.value.toLowerCase().trim();
     if (str.length !== 0) {
-      setSearching(true);
       movieHelpers.searchMovies(
         {
           page: 1,
@@ -36,27 +35,29 @@ const Home = () => {
         setCurrentMovies,
       );
     } else {
-      setSearching(false);
       movieHelpers.getTopMovies({ page: 1 }, setCurrentMovies);
     }
   };
+  const classes = useStyles();
+  console.log('currentMovies', currentMovies);
   if (currentMovies === undefined) {
     return <Loader />;
   } else {
     const movies = currentMovies;
     return (
-        <Container>
-          <Row>
-            <TextField
-              className={classes.textFieldContainer}
-              label="Search Movie"
-              onChange={e => handleSearch(e)}
-            />
-          </Row>
-          <Row>
-            <MovieList movies={movies} />
-          </Row>
-        </Container>
+      <Container>
+        <div>
+          <TextField
+            className={classes.textFieldContainer}
+            label="Search Movie"
+            onChange={e => handleSearchByName(e)}
+          />
+          <CategoryFinder setFunc={setCurrentMovies} />
+        </div>
+        <Row>
+          <MovieList movies={movies} />
+        </Row>
+      </Container>
     );
   }
 };
