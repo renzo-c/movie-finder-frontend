@@ -1,7 +1,7 @@
 {
-  "name": "react-frontend-template",
+  "name": "react-frontend-crehana-project",
   "version": "1.0.0",
-  "description": "This is project includes the basic libraries to start a frontend project with Reactjs",
+  "description": "This is a basic project to show and filter movies",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -12,6 +12,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.2",
@@ -32,7 +33,9 @@
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
+    "@babel/runtime": "^7.6.2",
     "@material-ui/core": "^4.4.3",
+    "@reach/router": "^1.2.1",
     "express": "^4.17.1",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.12",
