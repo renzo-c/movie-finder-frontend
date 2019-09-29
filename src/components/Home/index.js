@@ -78,7 +78,7 @@ const Home = () => {
   };
 
   const handleSearchByName = e => {
-    const str = e.target.value.toLowerCase().trim();
+    const str = e.target.value.toLowerCase();
     setSearchStr(str);
     if (str.length !== 0) {
       setIsSearching(true);
@@ -89,7 +89,7 @@ const Home = () => {
       movieHelpers.searchMovies(
         {
           page: 1,
-          query: str,
+          query: str.trim(),
         },
         setCurrentMovies,
         [],
@@ -100,7 +100,6 @@ const Home = () => {
       movieHelpers.getTopMovies({ page: 1 }, setCurrentMovies, []);
     }
   };
-
   const classes = useStyles();
   if (currentMovies === undefined) {
     return <Loader />;
@@ -124,6 +123,7 @@ const Home = () => {
             currentMovies={currentMovies}
             setCurrentMovies={setCurrentMovies}
             setCurrentCat={setCurrentCat}
+            setCurrentPage={setCurrentPage}
           />
         </div>
         <Row>

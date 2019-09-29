@@ -19,7 +19,7 @@ const CategoryFinder = ({
   setSearchStr,
   isSearching,
   currentPage,
-  currentMovies,
+  setCurrentPage,
   setCurrentMovies,
   setCurrentCat
 }) => {
@@ -34,8 +34,9 @@ const CategoryFinder = ({
     if (isSearching) {
       setSearching(false);
       setSearchStr('');
-      setCurrentMovies([]);
     }
+    setCurrentMovies([]);
+    setCurrentPage(1);
     setCurrentCat(event.target.value);
     setValues({ ...values, [name]: event.target.value });
     movieHelpers.getMoviesByCategory(
